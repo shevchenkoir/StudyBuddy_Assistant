@@ -1,0 +1,15 @@
+[Unit]
+Description=Telegram Bot
+After=network.target redis-server.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/telegram_bot
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/opt/telegram_bot/.venv/bin/python /opt/telegram_bot/bot.py
+Restart=always
+User=botuser
+Group=botuser
+
+[Install]
+WantedBy=multi-user.target

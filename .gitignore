@@ -1,0 +1,62 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Виртуальные окружения
+venv/
+.venv/
+
+# Кэш и временные файлы
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.tmp
+*.temp
+*.bak
+
+# Данные и модели
+*.ckpt
+*.pth
+*.bin
+*.onnx
+*.h5
+*.pt
+*.tflite
+*.joblib
+*.pkl
+*.sqlite3
+*.db
+Ollama/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Тестовые и временные директории
+uploads/
+uploaded_materials/
+tmp/
+temp/
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+.history/
+
+# Streamlit и кеши
+.streamlit/
+cache/
+
+# Библиотеки
+site-packages/
+
+# Большие архивы
+*.zip
+*.tar
+*.tar.gz
+*.7z

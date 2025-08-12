@@ -1,0 +1,36 @@
+
+
+# Основное
+torch==2.7.1
+sentence-transformers
+langchain
+faiss-cpu
+python-dotenv
+streamlit
+pydantic>=2.0
+tqdm
+requests
+numpy
+pillow
+
+# Для RAG и парсинга
+unstructured
+pdfplumber
+python-docx
+beautifulsoup4
+
+python-pptx
+pandas
+openpyxl
+
+# Для мультимодальности и OCR (если нужно)
+pytesseract
+opencv-python
+Pillow
+pyttsx3
+
+# Для работы с Telegram-ботом (если используешь)
+python-telegram-bot
+
+# Для взаимодействия с ollama через HTTP
+httpx
