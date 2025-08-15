@@ -66,47 +66,65 @@ streamlit run gui/streamlit_app.py
 ```text
 StudyBuddy_Assistant/
 ├── 📁 app/                              # 🖥 Логика запуска
-│   ├── 📄 main.py                       # 🚀 Основная точка входа
+│   ├── 📄 main.py                       # 🚀 Основная точка входа (запуск Streamlit/бота)
 │   └── 📄 telegram_bot.py               # 🤖 Telegram-бот
+│
 ├── 📁 assets/                           # 🖼 Статические ресурсы
+│
 ├── 📁 core/                             # 🧠 Основная логика
 │   ├── 📄 chat_context.py               # 💬 Контекст диалога
 │   ├── 📄 pedagogy.py                   # 📚 Педагогические подсказки
 │   ├── 📄 prompt_manager.py             # 📝 Управление промптами
-│   └── 📄 rag_engine.py                 # 🔍 RAG-поиск
-├── 📁 data_ingestion/                   # 📥 Загрузка данных
+│   ├── 📄 rag_engine.py                 # 🔍 RAG-поиск с OCR, роутингом по курсам и фолбэком
+│   └── 📄 router.py                     # 🗺 Маршрутизация вопроса к курсу (math/physics/general)
+│
+├── 📁 data_ingestion/                   # 📥 Загрузка и индексация данных
+│   ├── 📄 build_index.py                 # 🏗 Индексация материалов по курсам
 │   ├── 📄 docx_loader.py                # 📄 DOCX-загрузчик
 │   ├── 📄 pdf_loader.py                 # 📑 PDF-загрузчик
 │   ├── 📄 preprocessor.py               # 🧹 Очистка текста
-│   └── 📄 splitter.py                   # ✂ Разделение на чанки
-├── 📁 ethics/                           # ⚖ Этика
-│   ├── 📄 solution_filter.py            # 🚫 Фильтрация
-│   └── 📄 user_feedback.py              # 🗣 Обратная связь
-├── 📁 gui/                              # 🖼 Интерфейс
-│   ├── 📄 helpers_new_formats.py        # 🛠 Хелперы GUI
+│   └── 📄 splitter.py                    # ✂ Разделение текста на чанки
+│
+├── 📁 ethics/                           # ⚖ Этика и обратная связь
+│   ├── 📄 solution_filter.py            # 🚫 Фильтрация "списывания"
+│   └── 📄 user_feedback.py              # 🗣 Обратная связь от пользователя
+│
+├── 📁 gui/                              # 🖼 Интерфейс пользователя
+│   ├── 📄 helpers_new_formats.py        # 🛠 Хелперы для GUI
 │   ├── 📄 session_manager.py            # 📂 Менеджер сессий
-│   └── 📄 streamlit_app.py              # 🌐 Streamlit-приложение
-├── 📁 llm/                              # 🤖 Работа с LLM
-│   ├── 📄 answer_generator.py           # ✏ Генерация ответов
-│   ├── 📄 ollama_client.py              # 🔌 API Ollama
-│   └── 📄 quiz_generator.py             # 📝 Генератор тестов
-├── 📁 Ollama/                           # 📦 Данные и модели Ollama
+│   └── 📄 streamlit_app.py              # 🌐 Streamlit-приложение с вкладками: текст/изображение/quiz
+│
+├── 📁 llm/                              # 🤖 Взаимодействие с LLM
+│   ├── 📄 answer_generator.py           # ✏ Генерация ответа по контексту
+│   ├── 📄 ollama_client.py              # 🔌 Клиент для Ollama API (chat/embeddings)
+│   └── 📄 quiz_generator.py             # 📝 Генератор тестов по темам
+│
+├── 📁 Ollama/                           # 📦 Модели и данные Ollama (локальное хранение)
+│
 ├── 📁 output/                           # 🔊 Вывод
-│   └── 📄 speech_output.py              # 🗣 Синтез речи
-├── 📁 uploaded_materials/               # 📤 Загруженные материалы
+│   └── 📄 speech_output.py              # 🗣 Синтез речи (TTS) с защитой от повторного запуска
+│
+├── 📁 uploaded_materials/               # 📤 Загруженные учебные материалы по курсам
+│   ├── 📁 math/
+│   ├── 📁 physics/
+│   └── 📁 general/
+│
 ├── 📁 utils/                            # 🛠 Утилиты
 │   ├── 📄 constants.py                  # 📌 Константы
-│   ├── 📄 helpers.py                    # 🔧 Хелперы
-│   ├── 📄 image_ocr.py                   # 🔍 OCR-распознавание
-│   └── 📄 interface.py                  # 🔄 Интерфейс
-├── 📁 vector_db/                        # 📊 Векторная база
-│   ├── 📄 embedding_model.py            # 🧩 Модель эмбеддингов
-│   └── 📄 faiss_interface.py            # 📈 Работа с FAISS
-├── 📄 .env                              # ⚙ Переменные окружения
-├── 📄 check_ollama_connection.py        # 🧪 Автопроверка Ollama и моделей
-├── 📄 config.py                         # ⚙ Конфигурация
+│   ├── 📄 helpers.py                    # 🔧 Вспомогательные функции
+│   ├── 📄 image_ocr.py                   # 🔍 OCR-распознавание изображений (Pillow + OpenCV + Tesseract)
+│   └── 📄 interface.py                  # 🔄 Интерфейс для интеграции модулей
+│
+├── 📁 vector_db/                        # 📊 Векторная база данных (FAISS)
+│   ├── 📄 embedding_model.py            # 🧩 Модель эмбеддингов (через Ollama embeddings API)
+│   └── 📄 faiss_interface.py            # 📈 Индексация/поиск по курсам и фолбэк по всем индексам
+│
+├── 📄 .env                              # ⚙ Переменные окружения (модели, путь к Tesseract и т.д.)
+├── 📄 check_ollama_connection.py        # 🧪 Проверка доступности Ollama и моделей
+├── 📄 config.py                         # ⚙ Общая конфигурация проекта
 ├── 📄 README.md                         # 📖 Документация
-└── 📄 requirements.txt                  # 📦 Зависимости
+└── 📄 requirements.txt                  # 📦 Список зависимостей
+
 ```
 
 ---
