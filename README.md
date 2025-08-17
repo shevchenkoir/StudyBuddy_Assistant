@@ -33,7 +33,8 @@
    
 3. **Установите зависимости:**
 ```bash
-   pip install -r requirements.tx ```
+   pip install -r requirements.tx
+```
 ---
 
 ### 2️⃣ Запуск в автоматическом режиме (рекомендуется)
